@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+  head:
+    build: ../docker/head
+    container_name: slurm-head
+    hostname: head
+    volumes:
+      - ../shared:/etc/slurm
+    networks:
+      - hpcnet
+    ports:
+      - "2222:22"
+
+  compute1:
+    build: ../docker/compute
+    container_name: compute1
+    hostname: compute1
+    volumes:
+      - ../shared:/etc/slurm
+    networks:
+      - hpcnet
+
+  compute2:
+    build: ../docker/compute
+    container_name: compute2
+    hostname: compute2
+    volumes:
+      - ../shared:/etc/slurm
+    networks:
+      - hpcnet
+
+networks:
+  hpcnet:
+    driver: bridge
